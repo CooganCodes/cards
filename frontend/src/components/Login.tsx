@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function Login() {
   const [loginName, setLoginName] = useState('');
@@ -7,6 +7,7 @@ function Login() {
 
   async function doLogin(event: any): Promise<void> {
     event.preventDefault();
+
     const obj = { login: loginName, password: loginPassword };
     const js = JSON.stringify(obj);
 
@@ -18,6 +19,7 @@ function Login() {
       });
 
       const res = await response.json();
+
       if (res.id <= 0) setMessage('Invalid username or password');
       else {
         const user = { firstName: res.firstName, lastName: res.lastName, id: res.id };
@@ -25,7 +27,7 @@ function Login() {
         window.location.href = '/cards';
       }
     } catch (error) {
-      alert(error.toString());
+      alert((error as any).toString());
     }
   }
 
@@ -33,13 +35,22 @@ function Login() {
     <div id="loginDiv">
       <span id="inner-title">PLEASE LOG IN</span>
       <br />
-      <input type="text" placeholder="Username" onChange={(e) => setLoginName(e.target.value)} />
+      <input
+        type="text"
+        placeholder="Username"
+        onChange={(e) => setLoginName(e.target.value)}
+      />
       <br />
-      <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
       <br />
       <input type="submit" value="Do It" onClick={doLogin} />
       <span>{message}</span>
     </div>
   );
 }
+
 export default Login;

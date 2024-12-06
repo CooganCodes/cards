@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function CardUI() {
   const [card, setCard] = useState('');
@@ -23,7 +23,7 @@ function CardUI() {
       if (res.error) setMessage(`Error: ${res.error}`);
       else setMessage('Card added successfully');
     } catch (error) {
-      setMessage(error.toString());
+        setMessage((error as any).toString());
     }
   }
 
@@ -43,7 +43,7 @@ function CardUI() {
       const res = await response.json();
       setResults(res.results.join(', ') || 'No cards found');
     } catch (error) {
-      setResults(error.toString());
+        setResults((error as any).toString());
     }
   }
 
